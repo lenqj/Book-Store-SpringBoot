@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<header th:replace="~{fragments :: horizontal(${userLogged})}"></header>
+<table class="table table-stripped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tr th:each="tag : ${tags}" th:object="${tag}">
+        <td th:text="${tag.ID}"></td>
+        <td th:text="${tag.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

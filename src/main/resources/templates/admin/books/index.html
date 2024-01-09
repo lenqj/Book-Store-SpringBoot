@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<div class='dashboard'>
+    <div th:replace="~{fragments :: vertical(${user.getUserDetails().userRole})}"></div>
+    <div class='dashboard-app'>
+        <div class='dashboard-content'>
+            <div class='container'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h1 th:text="'Welcome back, ' + ${user.getUsername()}"></h1>
+                    </div>
+                    <div class='card-body'>
+                        <table class="table table-stripped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="book : ${books}" th:object="${book}">
+                                <td>
+                                    <a th:text="${book.title}" th:href="'/books/detail?bookID=' + ${book.getID()}"></a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning" th:href="'/detail?bookID=' + ${book.getID()}">Update</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" th:href="'/detail?bookID=' + ${book.getID()}">Delete</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
+
+<form method="post">
+    <div class="form-group">
+        <label>Name:
+            <input th:field="${category.name}" class="form-control">
+        </label>
+        <p class="alert alert-danger" role="alert" th:errors="${category.name}"></p>
+    </div>
+    <div class="row mb-3">
+        <div class="form-group col-auto align-content-center">
+            <input class="btn btn-success border border-info" type="submit" value="SEND!">
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

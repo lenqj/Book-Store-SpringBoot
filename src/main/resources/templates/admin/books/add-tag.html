@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container">
+<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" th:field="${bookTagDTO.book}">
+        <select th:field="${bookTagDTO.tag}">
+            <option th:each="tag : ${tags}"
+                    th:value="${tag.ID}"
+                    th:text="${tag.name}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add tag!" class="btn btn-success">
+    </div>
+</form>
+</body>
+</html>
