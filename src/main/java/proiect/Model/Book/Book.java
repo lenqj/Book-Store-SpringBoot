@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import proiect.Model.AbstractEntity;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
+@Getter
 @Entity
 public class Book extends AbstractEntity {
     @NotBlank(message = "Title is required.")
@@ -41,32 +43,16 @@ public class Book extends AbstractEntity {
         this.ID = ID;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public void setTitle(String name) {
         this.title = name;
-    }
-
-    public BookDetails getBookDetails() {
-        return bookDetails;
     }
 
     public void setBookDetails(BookDetails bookDetails) {
         this.bookDetails = bookDetails;
     }
 
-    public BookCategory getBookCategory() {
-        return bookCategory;
-    }
-
     public void setBookCategory(BookCategory bookCategory) {
         this.bookCategory = bookCategory;
-    }
-
-    public List<BookTag> getTags() {
-        return tags;
     }
 
     public void addTag(BookTag tag) {

@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
+<div th:replace="~{fragments :: vertical}"></div>
 
-<form method="post">
+<form method="post" th:action="@{/admin/categories/create}">
     <div class="form-group">
         <label>Name:
             <input th:field="${category.name}" class="form-control">

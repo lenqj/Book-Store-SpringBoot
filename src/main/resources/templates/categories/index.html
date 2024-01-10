@@ -2,33 +2,19 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div class='dashboard'>
-    <div th:replace="~{fragments :: vertical(${user.getUserDetails().userRole})}"></div>
-    <div class='dashboard-app'>
-        <div class='dashboard-content'>
-            <div class='container'>
-                <div class='card'>
-                    <div class='card-header'>
-                        <h1 th:text="'Welcome back, ' + ${user.getUsername()}"></h1>
-                    </div>
-                    <div class='card-body'>
-                        <table class="table table-stripped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                            </tr>
-                            </thead>
-                            <tr th:each="category : ${categories}" th:object="${category}">
-                                <td th:text="${category.ID}"></td>
-                                <td><a th:text="${category.name}" th:href="'books?categoryID=' + ${category.ID}"></a></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments :: horizontal}"></div>
+<table class="table table-stripped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tr th:each="category : ${categories}" th:object="${category}">
+        <td th:text="${category.ID}"></td>
+        <td><a th:text="${category.name}" th:href="'books?categoryID=' + ${category.ID}"></a></td>
+    </tr>
+</table>
+
 </body>
 </html>

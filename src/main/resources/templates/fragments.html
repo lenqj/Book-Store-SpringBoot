@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -8,15 +10,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://kit.fontawesome.com/206959994e.js"></script>
-    <link rel="stylesheet" th:href="@{style.css}">
+    <link rel="stylesheet" th:href="@{css/style.css}">
     <title>lenqj project</title>
 </head>
 
 <body class="container">
 
-<header th:fragment="horizontal(userLogged)">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">lenqj</a>
+<header th:fragment="horizontal">
+    <nav class="navbar navbar-expand-lg navbar-light mx-3" style="background-color: #373193;">
+        <a class="navbar-brand mx-3 text-warning" th:href="@{/}">lenqj</a>
         <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
                 data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
@@ -24,43 +26,54 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link text-white" th:href="@{/}" >Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
                        href="#" id="navbarBooksDropDown">
                         Books
                     </a>
                     <div aria-labelledby="navbarBooksDropDown" class="dropdown-menu">
-                        <a class="dropdown-item" href="/books">All books</a>
+                        <a class="dropdown-item" th:href="@{/books}">All books</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
                        href="#" id="navbarCategoriesDropDown">
                         Categories
                     </a>
                     <div aria-labelledby="navbarCategoriesDropDown" class="dropdown-menu">
-                        <a class="dropdown-item" href="/categories">All categories</a>
+                        <a class="dropdown-item" th:href="@{/categories}">All categories</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
                        href="#" id="navbarTagsDropDown">
                         Tags
                     </a>
                     <div aria-labelledby="navbarTagsDropDown" class="dropdown-menu">
-                        <a class="dropdown-item" href="/tags">All tags</a></div>
+                        <a class="dropdown-item" th:href="@{/tags}">All tags</a></div>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
+                       href="#" id="navbarRolesDropDown">
+                        Roles
+                    </a>
+                    <div aria-labelledby="navbarRolesDropDown" class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/admin/roles}">All roles</a>
+                        <a class="dropdown-item" th:href="@{/admin/roles/create}">Create role</a>
+                        <a class="dropdown-item" th:href="@{/admin/roles/delete}">Delete role</a>
+                    </div>
                 </li>
             </ul>
             <div class="d-flex ms-auto mx-3">
-                <a class="btn btn-outline-info" href="/login" th:if="${userLogged} == false">Login</a>
-                <a class="btn btn-outline-info" href="/profile" th:if="${userLogged} == true">Profile</a>
+                <a class="btn btn-warning" sec:authorize="!isAuthenticated()" href="/login">Login</a>
+                <a class="btn btn-warning" sec:authorize="isAuthenticated()" href="/profile">Profile</a>
             </div>
         </div>
     </nav>
 </header>
-<div class="dashboard-nav" th:fragment="vertical(userRole)">
+<div class="dashboard-nav" th:fragment="vertical">
         <header>
             <a class="brand-logo" href="#">
                 <i class="fas fa-anchor"></i>
@@ -68,37 +81,37 @@
             </a>
         </header>
         <nav class="dashboard-nav-list">
-            <a class="dashboard-nav-item" href="/">
+            <a class="dashboard-nav-item" th:href="@{/}">
                 <i class="fas fa-home"></i> Home
             </a>
             <div class="nav-item-divider"></div>
-            <a th:if="${userRole} == 'ROLE_ADMIN'" class="dashboard-nav-item" href="/admin/users">
-                <i class="fas fa-users"></i> Users
-            </a>
-            <a class="dashboard-nav-item" href="/admin/books">
+            <a class="dashboard-nav-item" th:href="@{/admin/books}">
                 <i class="fas fa-users"></i> Books
             </a>
-            <a class="dashboard-nav-item" href="/admin/categories">
+            <a class="dashboard-nav-item" th:href="@{/admin/categories}">
                 <i class="fas fa-users"></i> Categories
             </a>
-            <a class="dashboard-nav-item" href="/admin/tags">
+            <a class="dashboard-nav-item" th:href="@{/admin/tags}">
                 <i class="fas fa-users"></i> Tags
             </a>
-            <a th:if="${userRole} == 'ROLE_ADMIN'" class="dashboard-nav-item" href="/admin/roles">
+            <a class="dashboard-nav-item" sec:authorize="hasAnyRole('ADMIN')" th:href="@{/admin/users}">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a class="dashboard-nav-item" sec:authorize="hasAnyRole('ADMIN')" th:href="@{/admin/roles}">
                 <i class="fas fa-money-check-alt"></i> Roles
             </a>
-
-            <a class="dashboard-nav-item" href="/admin/settings">
+            <a class="dashboard-nav-item" th:href="@{/settings}">
                 <i class="fas fa-cogs"></i> Settings
             </a>
-            <a class="dashboard-nav-item" href="/admin/profile">
+            <a class="dashboard-nav-item" th:href="@{/profile}">
                 <i class="fas fa-user"></i> Profile
             </a>
             <div class="nav-item-divider"></div>
-            <a class="dashboard-nav-item" href="/logout">
+            <a class="dashboard-nav-item" th:href="@{/logout}">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </nav>
 </div>
+
 </body>
 </html>

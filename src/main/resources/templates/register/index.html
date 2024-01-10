@@ -15,31 +15,48 @@
                             <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
                             <p class="text-white-50 mb-5">Please fill in the fields below.
 
-                            <div th:if="${param.error}">
-                                <div class="alert alert-danger">Invalid Email or Password</div>
+                            <div th:switch="${registrationSuccess}">
+                                <div th:case="'Success'" class="alert alert-success">
+                                    <strong>Success!</strong> Operation performed successfully.
+                                </div>
+                                <div th:case="'Failed'" class="alert alert-danger">
+                                    <strong>Failure!</strong> Operation failed. Please try again
+                                </div>
                             </div>
-                            <div th:if="${param.logout}">
-                                <div class="alert alert-success"> You have been logged out.</div>
-                            </div>
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post" th:action="@{/register}" th:object="${user}">
 
                                 <div class="form-outline form-white mb-2">
                                     <label>Username:
-                                        <input class="form-control border border-info" th:field="${user.username}">
+                                        <input type="text" id="username" autofocus="autofocus" class="form-control" required name="username"  th:field="*{username}">
                                     </label>
-                                    <p class="alert alert-danger" role="alert" th:errors="${user.username}"></p>
                                 </div>
 
                                 <div class="form-outline form-white mb-2">
-                                    <label>Password:
-                                        <input class="form-control border border-info" th:field="${user.password}">
+                                    <label>First Name:
+                                        <input type="text"  id="firstName" autofocus="autofocus"
+                                               class="form-control" required name="firstName" th:field="*{firstName}">
                                     </label>
-                                    <p class="alert alert-danger" role="alert" th:errors="${user.password}"></p>
                                 </div>
-
+                                <div class="form-outline form-white mb-2">
+                                    <label>Last Name:
+                                        <input type="text"  id="lastName" autofocus="autofocus"
+                                               class="form-control" required name="lastName" th:field="*{lastName}" >
+                                    </label>
+                                </div>
+                                <div class="form-outline form-white mb-2">
+                                <label>Email:
+                                    <input type="text"  id="emailAddress" autofocus="autofocus"
+                                           class="form-control" required name="emailAddress" th:field="*{emailAddress}">
+                                </label>
+                            </div>
+                                <div class="form-outline form-white mb-2">
+                                <label>Password:
+                                    <input type="password"  id="password" autofocus="autofocus"
+                                           class="form-control" required name="password" th:field="*{password}" >                                </label>
+                            </div>
 
                                 <p class="small mb-5 pb-lg-2">
-                                    <a class="text-white-50" href="./login">Already registered?</a>
+                                    <a class="text-white-50" th:href="@{/login}">Already registered?</a>
                                 </p>
 
                                 <div class="row-cols-auto mb-3">
@@ -49,12 +66,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        <div>
-                            <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-                            </p>
-                        </div>
-
                     </div>
                 </div>
             </div>

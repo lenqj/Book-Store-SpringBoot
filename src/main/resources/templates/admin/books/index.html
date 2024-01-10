@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div class='dashboard'>
-    <div th:replace="~{fragments :: vertical(${user.getUserDetails().userRole})}"></div>
+    <div th:replace="~{fragments :: vertical}"></div>
     <div class='dashboard-app'>
         <div class='dashboard-content'>
             <div class='container'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h1 th:text="'Welcome back, ' + ${user.getUsername()}"></h1>
+                        <h1 th:text="'Welcome back, ' + ${user.username}"></h1>
                     </div>
                     <div class='card-body'>
                         <table class="table table-stripped">
@@ -22,7 +23,7 @@
                             </thead>
                             <tr th:each="book : ${books}" th:object="${book}">
                                 <td>
-                                    <a th:text="${book.title}" th:href="'/books/detail?bookID=' + ${book.getID()}"></a>
+                                    <a th:text="${book.title}" th:href="'/books/detail?bookID=' + ${book.ID}"></a>
                                 </td>
                                 <td>
                                     <button class="btn btn-warning" th:href="'/detail?bookID=' + ${book.getID()}">Update</button>

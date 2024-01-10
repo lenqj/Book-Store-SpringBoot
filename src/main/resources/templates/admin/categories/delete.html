@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
-<form method="post">
+<div th:replace="~{fragments :: vertical}"></div>
+<form method="post" th:action="@{/admin/categories/delete}">
     <div class="form-group mt-2 col-md-12">
         <th:block th:each="category : ${categories}">
             <div class="form-check form-switch">

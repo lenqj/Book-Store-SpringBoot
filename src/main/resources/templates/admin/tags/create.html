@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
-<form method="post" action="/tags/create">
+<div th:replace="~{fragments :: vertical}"></div>
+<form method="post" th:action="@{/admin/tags/create}">
     <div class="form-group">
         <label>Name:
             <input th:field="${tag.name}" class="form-control">

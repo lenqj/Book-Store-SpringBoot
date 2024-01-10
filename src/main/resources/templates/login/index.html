@@ -14,26 +14,19 @@
 
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                            <div th:if="${param.error}">
-                                <div class="alert alert-danger">Invalid Email or Password</div>
-                            </div>
-                            <div th:if="${param.logout}">
-                                <div class="alert alert-success"> You have been logged out.</div>
-                            </div>
-                            <form method="post" enctype="multipart/form-data">
+                            <p th:if="${loginError}" class="error">Wrong user or password</p>
+
+                            <form method="post" th:action="@{/login}">
 
                                 <div class="form-outline form-white mb-4">
                                     <label>Username:
-                                        <input class="form-control border border-info" th:field="${user.username}">
-                                    </label>
-                                    <p class="alert alert-danger" role="alert" th:errors="${user.username}"></p>
-                                </div>
+                                        <input class="form-control border border-info" id="username" name="username" autofocus="autofocus">
+                                    </label></div>
 
                                 <div class="form-outline form-white mb-4">
                                     <label>Password:
-                                        <input class="form-control border border-info" th:field="${user.password}">
+                                        <input class="form-control border border-info" id="password" name="password">
                                     </label>
-                                    <p class="alert alert-danger" role="alert" th:errors="${user.password}"></p>
                                 </div>
 
                                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>

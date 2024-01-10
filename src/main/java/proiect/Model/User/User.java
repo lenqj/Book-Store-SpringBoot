@@ -1,61 +1,64 @@
 package proiect.Model.User;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.UniqueElements;
-import proiect.Model.AbstractEntity;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
+import proiect.Model.UserRole;
 
+import java.time.LocalDate;
+import java.util.List;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
 @Entity
-public class User extends AbstractEntity {
+@Table(name = "USERS")
+public class User {
 
-    @Column(unique=true)
-    @NotBlank(message = "Username is required.")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters.")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NonNull
+    @Column(unique = true)
     private String username;
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$", message = "password must contain 1 number (0-9)\n" +
-            "password must contain 1 uppercase letters\n" +
-            "password must contain 1 lowercase letters\n" +
-            "password must contain 1 non-alpha numeric number\n" +
-            "password is 8-16 characters with no space")
-    @Size(min = 6, message = "Username must be between 3 and 50 characters.")
+
+    @NonNull
     private String password;
-    @OneToOne
-    private UserDetails userDetails;
 
-    public User(String username, String password, UserDetails userDetails) {
-        this.username = username;
-        this.password = password;
-        this.userDetails = userDetails;
-    }
+    @Singular
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "users_roles",
+            joinColumns = {
+                    @JoinColumn(name = "USERS_ID",
+                            referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ROLES_ID",
+                            referencedColumnName = "ID")})
+    private List<UserRole> roles;
 
-    public User() {
-    }
+    @Builder.Default
+    private Boolean accountNonExpired = true;
 
-    public String getUsername() {
-        return username;
-    }
+    @Builder.Default
+    private Boolean accountNonLocked = true;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Builder.Default
+    private Boolean credentialsNonExpired = true;
 
-    public String getPassword() {
-        return password;
-    }
+    @Builder.Default
+    private Boolean enabled = true;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String firstName;
 
-    public UserDetails getUserDetails() {
-        return userDetails;
-    }
+    private String lastName;
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
-    }
+    @NaturalId(mutable = true)
+    private String emailAddress;
+
+    private LocalDate birthdate;
+
 }

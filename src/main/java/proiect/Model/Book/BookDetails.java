@@ -7,6 +7,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import proiect.Model.AbstractEntity;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 
 import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
+@Getter
 @Entity
 public class BookDetails extends AbstractEntity {
     @NotBlank(message = "Author is required.")
@@ -32,69 +34,40 @@ public class BookDetails extends AbstractEntity {
     @Transient
     private MultipartFile imageFile;
 
-    public BookDetails(String author, String description, LocalDate publishedDate, Long stock, Long price, byte[] imageData, MultipartFile imageFile) {
+    public BookDetails(String author, String description, LocalDate publishedDate, Long stock, Long price, byte[] imageData) {
         this.author = author;
         this.description = description;
         this.publishedDate = publishedDate;
         this.stock = stock;
         this.price = price;
         this.imageData = imageData;
-        this.imageFile = imageFile;
     }
 
     public BookDetails() {
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public LocalDate getPublishedDate() {
-        return publishedDate;
     }
 
     public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 
-    public Long getStock() {
-        return stock;
-    }
-
     public void setStock(Long stock) {
         this.stock = stock;
-    }
-
-    public Long getPrice() {
-        return price;
     }
 
     public void setPrice(Long price) {
         this.price = price;
     }
 
-    public byte[] getImageData() {
-        return imageData;
-    }
-
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
-    }
-
-    public MultipartFile getImageFile() {
-        return imageFile;
     }
 
     public void setImageFile(MultipartFile imageFile) {

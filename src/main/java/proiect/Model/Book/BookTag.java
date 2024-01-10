@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import proiect.Model.AbstractEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 public class BookTag extends AbstractEntity {
     @Size(min = 1, max = 25)
@@ -25,16 +27,8 @@ public class BookTag extends AbstractEntity {
     public BookTag() {
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Book> getBooks() {
-        return books;
     }
 
     public void setBooks(List<Book> books) {

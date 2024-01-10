@@ -1,16 +1,18 @@
 package proiect.Model;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 
 import java.util.Objects;
+@Getter
 @MappedSuperclass
 public abstract class AbstractEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int ID;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -21,10 +23,6 @@ public abstract class AbstractEntity {
     @Override
     public int hashCode() {
         return Objects.hash(ID);
-    }
-
-    public int getID() {
-        return ID;
     }
 
     public void setID(int ID) {

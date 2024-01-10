@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
+<div th:replace="~{fragments :: vertical}"></div>
 
 <div class="container border border-info">
     <h2>Add a new BOOK!</h2>
-    <form method="post" enctype="multipart/form-data" th:object="${book}">
+    <form method="post" enctype="multipart/form-data" th:object="${book}" th:action="@{/admin/books/create}">
         <div class="row mb-3">
             <div class="form-group col-auto">
                 <label>Title:
