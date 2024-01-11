@@ -5,6 +5,7 @@ import lombok.Data;
 
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -13,7 +14,10 @@ public record UserDto(
         List<UserRoleDto> roles,
         String firstName,
         String lastName,
-        String emailAddress) {
+        String emailAddress,
+        String address,
+        String mobile,
+        LocalDate birthdate) {
     public String getPrettyRoles(){
         StringBuilder stringBuilder = new StringBuilder(" ");
         roles.forEach(stringBuilder::append);

@@ -1,25 +1,17 @@
-package proiect.LoginController;
+package proiect.User.Controller;
 
-import jakarta.validation.Valid;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import proiect.Book.Repository.BookCategoryRepository;
 import proiect.Book.Service.BookService;
 import proiect.DTO.UserDto;
-import proiect.Model.RegistrationRequest;
-import proiect.Tag.Repository.TagRepository;
-import proiect.Book.Service.BookServiceImpl;
+import proiect.Model.User.RegistrationRequest;
 import proiect.User.Service.UserService;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,6 +22,7 @@ public class LoginHomeController {
     private final UserService userService;
     @GetMapping("/")
     public String home(Model model, Authentication authentication){
+        model.addAttribute("sitetitle", "LP - Home");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
@@ -39,17 +32,20 @@ public class LoginHomeController {
     }
     @GetMapping("/login")
     public String login(Model model){
+        model.addAttribute("sitetitle", "LP - Login");
         return "login/index";
     }
 
     @GetMapping("/login-error")
     public String loginError(Model model){
+        model.addAttribute("sitetitle", "LP - Error");
         model.addAttribute("loginError", true);
         return "login/index";
     }
 
     @GetMapping("/register")
     public String register(@RequestParam(value="registrationSuccess", required = false) String success, Model model){
+        model.addAttribute("sitetitle", "LP - Register");
         model.addAttribute("title", "Register");
         model.addAttribute("registrationSuccess", success);
         model.addAttribute("user", new RegistrationRequest());
@@ -68,15 +64,27 @@ public class LoginHomeController {
     }
 
 
-    @RequestMapping("/admin")
+    @GetMapping("/admin")
     public String index(Model model, Authentication authentication)
     {
+        model.addAttribute("sitetitle", "LP - Admin");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
+            model.addAttribute("headertext", "Welcome back, " + userDto.username() + "!");
         }
         return "admin/index";
     }
-
+    @GetMapping("/profile")
+    public String profile(Model model, Authentication authentication)
+    {
+        model.addAttribute("sitetitle", "LP - Admin");
+        if(authentication != null){
+            UserDto userDto = userService.getLoginUser();
+            model.addAttribute("user", userDto);
+            model.addAttribute("headertext", "Profile - " + userDto.username());
+        }
+        return "profile/index";
+    }
 
 }

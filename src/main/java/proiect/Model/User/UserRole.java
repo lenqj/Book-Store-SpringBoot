@@ -1,7 +1,9 @@
-package proiect.Model;
+package proiect.Model.User;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Data
 @Getter
@@ -10,6 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "ROLES")
+@DynamicUpdate
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

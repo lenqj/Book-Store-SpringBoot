@@ -2,6 +2,7 @@ package proiect.Security;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import proiect.User.Repository.UserRepository;
 
 @Configuration
@@ -24,16 +26,25 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authConfig -> {
                     authConfig.requestMatchers(HttpMethod.GET, "/", "/login", "/register", "/error", "/login-error", "/logout", "/css/**", "/js/**", "/images/**").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/categories", "/tags", "/books").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/", "/login", "/register", "/error", "/login-error", "/logout", "/css/**", "/js/**", "/images/**").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/categories", "/tags", "/books", "/books/detail").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/categories", "/tags", "/books", "/books/detail").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/register").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/register").permitAll();
-                    //authConfig.requestMatchers(HttpMethod.GET, "/admin").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.GET, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.POST, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.PUT, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/tags", "/admin/tags/create", "/admin/tags/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/tags", "/admin/tags/create", "/admin/tags/delete").hasAnyAuthority("ADMIN", "USER");
+
+                    authConfig.requestMatchers(HttpMethod.GET, "/admin/users", "/admin/users/create", "/admin/users/delete").hasAnyAuthority("ADMIN");
+                    authConfig.requestMatchers(HttpMethod.POST, "/admin/users", "/admin/users/create", "/admin/users/delete").hasAnyAuthority("ADMIN");
                     authConfig.anyRequest().authenticated();
+
                 })
                 .formLogin(login -> {
                             login.loginPage("/login");

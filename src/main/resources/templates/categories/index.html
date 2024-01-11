@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 <body class="container">
 <div th:replace="~{fragments :: horizontal}"></div>
 <table class="table table-stripped">
@@ -12,7 +12,7 @@
     </thead>
     <tr th:each="category : ${categories}" th:object="${category}">
         <td th:text="${category.ID}"></td>
-        <td><a th:text="${category.name}" th:href="'books?categoryID=' + ${category.ID}"></a></td>
+        <td><a th:href="@{~/books(categoryID=${category.ID})}" th:text="${category.name}"></a></td>
     </tr>
 </table>
 

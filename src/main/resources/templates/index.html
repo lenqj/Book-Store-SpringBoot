@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 
 <body class="container">
 <header th:insert="~{fragments :: horizontal}"></header>
-
-
-<div class="row my-4">
-    <div class="col-sm-3 my-4" th:each="book : ${books}">
+<div class="row my-lg-5">
+    <div class="col-sm-3 my-2" th:each="book : ${books}">
         <div class="card h-100">
             <img class="card-img-top" th:if="${book.bookDetails.imageData != null}"
                  th:src="@{'data:image/jpeg;base64,'+ ${book.bookDetails.getBase64imageData()}}"
@@ -22,7 +20,7 @@
                     <li class="list-group-item"><strong>Price:</strong> <span th:text="${book.bookDetails.price}"></span></li>
                 </ul>
                 <div class="mt-auto">
-                    <a th:href="'/books/detail?bookID=' + ${book.ID}" class="btn btn-primary">Details</a>
+                    <a th:href="@{~/books/detail(bookID=${book.ID})}" class="btn btn-primary">Details</a>
                 </div>
             </div>
         </div>

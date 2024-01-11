@@ -1,13 +1,14 @@
 package proiect.Book.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import proiect.Book.Repository.BookCategoryRepository;
 import proiect.Book.Repository.BookRepository;
+import proiect.Book.Service.BookCategoryService;
+import proiect.Book.Service.BookService;
 import proiect.DTO.UserDto;
 import proiect.Model.Book.Book;
 import proiect.Model.Book.BookCategory;
@@ -20,22 +21,23 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("books")
 public class BookController {
-    private final BookRepository bookRepository;
-    private final BookCategoryRepository bookCategoryRepository;
+    private final BookService bookService;
+    private final BookCategoryService bookCategoryService;
     private final UserService userService;
 
     @GetMapping
     public String displayAllBooks(@RequestParam(required = false) Integer categoryID, Model model, Authentication authentication){
+        model.addAttribute("sitetitle", "LP - Books");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
         }
         if (categoryID == null){
             model.addAttribute("title","All Books");
-            model.addAttribute("books", bookRepository.findAll());
+            model.addAttribute("books", bookService.findAll());
             model.addAttribute("userLogged", false);
         }else{
-            Optional<BookCategory> result = bookCategoryRepository.findById(categoryID);
+            Optional<BookCategory> result = bookCategoryService.findById(categoryID);
             if(result.isEmpty()){
                 model.addAttribute("title","Invalid Category ID: " + categoryID);
                 model.addAttribute("userLogged", false);
@@ -52,7 +54,8 @@ public class BookController {
 
     @GetMapping("detail")
     public String displayBookDetails(@RequestParam Integer bookID, Model model) {
-        Optional<Book> result = bookRepository.findById(bookID);
+        model.addAttribute("sitetitle", "LP - Book Details");
+        Optional<Book> result = bookService.findById(bookID);
         if(result.isEmpty()){
             model.addAttribute("title", "Invalid Book ID:" + bookID);
             model.addAttribute("userLogged", false);
@@ -65,5 +68,4 @@ public class BookController {
         }
         return "books/detail";
     }
-
 }

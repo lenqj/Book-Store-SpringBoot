@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical(${user.getUserDetails().getRole()})}"></div>
-<form method="post">
-    <div class="form-group">
-        <input type="hidden" th:field="${bookTagDTO.book}">
-        <select th:field="${bookTagDTO.tag}">
-            <option th:each="tag : ${tags}"
-                    th:value="${tag.ID}"
-                    th:text="${tag.name}">
-            </option>
-        </select>
+<div class='dashboard'>
+    <div th:replace="~{fragments :: vertical}"></div>
+    <div class='dashboard-app'>
+        <div class='dashboard-content'>
+            <div class='container'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h1 th:text="${headertext}"></h1>
+                    </div>
+                    <div class='card-body'>
+                        <form method="post">
+                            <div class="form-group">
+                                <input th:field="${bookTagDTO.book}" type="hidden">
+                                <select th:field="${bookTagDTO.tag}">
+                                    <option th:each="tag : ${tags}"
+                                            th:text="${tag.name}"
+                                            th:value="${tag.ID}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-success" type="submit" value="Add tag!">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Add tag!" class="btn btn-success">
-    </div>
-</form>
+</div>
 </body>
 </html>

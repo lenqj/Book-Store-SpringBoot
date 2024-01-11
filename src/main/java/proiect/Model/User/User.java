@@ -2,8 +2,9 @@ package proiect.Model.User;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
-import proiect.Model.UserRole;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,5 +61,6 @@ public class User {
     private String emailAddress;
 
     private LocalDate birthdate;
-
+    private String address;
+    private String mobile;
 }

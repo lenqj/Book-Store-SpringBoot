@@ -19,16 +19,20 @@ public class MySecurityUser extends User {
     private String fullname;
     private String emailaddress;
     private LocalDate birthdate;
+    private String address;
+    private String mobile;
 
 
     public MySecurityUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,
-                          String firstName, String lastName, String emailAddress, LocalDate birthdate) {
+                          String firstName, String lastName, String emailAddress, LocalDate birthdate, String address, String mobile) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullname = firstName + " " + lastName;
         this.emailaddress = emailAddress;
         this.birthdate = birthdate;
+        this.address = address;
+        this.mobile = mobile;
     }
 
     @Override

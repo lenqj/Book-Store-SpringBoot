@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 <body class="container">
-<div th:replace="~{fragments :: vertical}"></div>
-<form method="post" th:action="@{/admin/tags/create}">
-    <div class="form-group">
-        <label>Name:
-            <input th:field="${tag.name}" class="form-control">
-        </label>
-        <p class="error" th:errors="${tag.name}"></p>
-    </div>
-    <div class="row-cols-auto mb-3">
-        <div class="form-group col-auto align-content-center">
-            <input class="btn btn-success border border-info" type="submit" value="SEND!">
+<div class='dashboard'>
+    <div th:replace="~{fragments :: vertical}"></div>
+    <div class='dashboard-app'>
+        <div class='dashboard-content'>
+            <div class='container'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h1 th:text="${headertext}"></h1>
+                    </div>
+                    <div class='card-body'>
+                        <form method="post" th:action="@{~/admin/tags/create}">
+                            <div class="form-group">
+                                <label>Name:
+                                    <input class="form-control" th:field="${tag.name}">
+                                </label>
+                                <p class="error" th:errors="${tag.name}"></p>
+                            </div>
+                            <div class="row-cols-auto mb-3">
+                                <div class="form-group col-auto align-content-center">
+                                    <input class="btn btn-success border border-info" type="submit" value="SEND!">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</form>
+</div>
 </body>
 </html>

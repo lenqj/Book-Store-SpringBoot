@@ -16,8 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
                                          @Param("password") String password);
     @Query("SELECT u FROM User u WHERE u.username = :username")
     Optional<User> findUserByUsername(@Param("username") String username);
-    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH)
-    List<User> findAll();
 
     @Query("SELECT u FROM User u WHERE u.username = ?#{ principal.username}")
     Optional<User> findLoginUser();

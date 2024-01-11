@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.web.multipart.MultipartFile;
 import proiect.Model.AbstractEntity;
 
@@ -17,6 +19,7 @@ import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
 @Getter
 @Entity
+@DynamicUpdate
 public class BookDetails extends AbstractEntity {
     @NotBlank(message = "Author is required.")
     private String author;

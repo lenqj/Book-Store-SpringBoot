@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 <body class="container">
 <header th:replace="~{fragments :: horizontal}"></header>
 
@@ -23,8 +25,10 @@
             <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>
         </td>
     </tr>
-
-
 </table>
+
+<a sec:authorize="isAuthenticated() and hasAuthority('ADMIN')" th:href="@{~/admin/books/add-tag(bookID=${book.ID})}">Add
+    tag!</a>
+
 </body>
 </html>

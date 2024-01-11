@@ -12,8 +12,7 @@
                         <h1 th:text="${headertext}"></h1>
                     </div>
                     <div class='card-body'>
-                        <form enctype="multipart/form-data" method="post" th:action="@{~/admin/books/create}"
-                              th:object="${book}">
+                        <form enctype="multipart/form-data" method="post" th:action="@{~/admin/books/update}">
                             <div class="row mb-3">
                                 <div class="form-group col-auto">
                                     <label>Title:
@@ -92,7 +91,7 @@
                             </div>
                             <div class="row-cols-auto mb-3">
                                 <div class="form-group col-auto align-content-center">
-                                    <input class="btn btn-success border border-info" type="submit" value="Create">
+                                    <input class="btn btn-success border border-info" type="submit" value="Update">
                                 </div>
                             </div>
                         </form>

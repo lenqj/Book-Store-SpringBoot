@@ -6,17 +6,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import proiect.Model.AbstractEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
 @Getter
 @Entity
-public class Book extends AbstractEntity {
+@DynamicUpdate
+public class Book extends AbstractEntity{
     @NotBlank(message = "Title is required.")
     @Size(min = 3, max = 50, message = "Title must be between 3 and 50 characters.")
     private String title;

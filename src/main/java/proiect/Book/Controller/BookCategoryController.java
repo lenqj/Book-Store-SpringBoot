@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import proiect.Book.Repository.BookCategoryRepository;
+import proiect.Book.Service.BookCategoryService;
 import proiect.DTO.UserDto;
 import proiect.User.Service.UserService;
 
@@ -15,17 +16,19 @@ import proiect.User.Service.UserService;
 @RequiredArgsConstructor
 @RequestMapping("categories")
 public class BookCategoryController {
-    private final BookCategoryRepository bookCategoryRepository;
+    private final BookCategoryService bookCategoryService;
     private final UserService userService;
 
     @GetMapping
     public String displayAllCategories(Model model, Authentication authentication){
+        model.addAttribute("sitetitle", "LP - Category Books");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
         }
         model.addAttribute("title", "All Categories");
-        model.addAttribute("categories", bookCategoryRepository.findAll());
+        model.addAttribute("categories", bookCategoryService.findAll());
+
         return "categories/index";
     }
 

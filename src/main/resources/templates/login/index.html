@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 
-<body class="container bg-primary bg-gradient">
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+<body class="container custom-background">
+<section class="gradient-custom">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center my-lg-5">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
@@ -16,7 +16,7 @@
                             <p class="text-white-50 mb-5">Please enter your login and password!</p>
                             <p th:if="${loginError}" class="error">Wrong user or password</p>
 
-                            <form method="post" th:action="@{/login}">
+                            <form method="post" th:action="@{~/login}">
 
                                 <div class="form-outline form-white mb-4">
                                     <label>Username:
@@ -25,7 +25,8 @@
 
                                 <div class="form-outline form-white mb-4">
                                     <label>Password:
-                                        <input class="form-control border border-info" id="password" name="password">
+                                        <input class="form-control border border-info" id="password" name="password"
+                                               type="password">
                                     </label>
                                 </div>
 
@@ -33,14 +34,15 @@
 
                                 <div class="row-cols-auto mb-3">
                                     <div class="form-group col-auto align-content-center">
-                                        <input class="btn btn-outline-light btn-lg px-5" type="submit" value="SEND!">
+                                        <input class="btn btn-outline-light btn-lg px-5" type="submit" value="Login">
                                     </div>
                                 </div>
                             </form>
                         </div>
 
                         <div>
-                            <p class="mb-0">Don't have an account? <a href="./register" class="text-white-50 fw-bold">Sign Up</a>
+                            <p class="mb-0">Don't have an account? <a class="text-white-50 fw-bold"
+                                                                      th:href="@{~/register}">Sign Up</a>
                             </p>
                         </div>
 

@@ -1,4 +1,4 @@
-package proiect.Tag.Repository;
+package proiect.Book.Repository;
 
 import org.springframework.data.repository.CrudRepository;
 import proiect.Model.Book.BookTag;

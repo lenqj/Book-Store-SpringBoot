@@ -41,6 +41,6 @@ public class MyUserDetailsService implements UserDetailsService {
                 .forEach(authority -> grantedAuthorities.add(new SimpleGrantedAuthority(authority.getRole())));
 
         return new MySecurityUser(user.getUsername(), user.getPassword(), true, true, true, true, grantedAuthorities,
-                user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getBirthdate());
+                user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getBirthdate(), user.getAddress(), user.getMobile());
     }
 }

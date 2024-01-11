@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
+
+<body class="container">
+<div class='dashboard'>
+    <div th:replace="~{fragments :: vertical}"></div>
+    <div class='dashboard-app'>
+        <div class='dashboard-content'>
+            <div class='container'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h1 th:text="${headertext}"></h1>
+                    </div>
+                    <div class='card-body'>
+
+                        <form method="post" th:action="@{~/admin/users/create}"
+                              th:object="${user}">
+                            <div class="row mb-3">
+                                <div class="form-group col-auto">
+                                    <label>Username:
+                                        <input class="form-control border border-info" th:field="${user.username}">
+                                    </label>
+                                    <p class="alert alert-danger" role="alert" th:errors="${user.username}"></p>
+                                </div>
+                                <div class="form-group col-auto">
+                                    <label>Password:
+                                        <input class="form-control border border-info" th:field="${user.password}">
+                                    </label>
+                                    <p class="alert alert-danger" role="alert" th:errors="${user.password}"></p>
+                                </div>
+                                <div class="form-group col-auto">
+                                    <label>First Name:
+                                        <input class="form-control border border-info"
+                                               th:field="${user.firstName}">
+                                    </label>
+                                    <p class="alert alert-danger" role="alert"
+                                       th:errors="${user.firstName}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Last Name:
+                                    <input class="form-control border border-info"
+                                           th:field="${user.lastName}"
+                                           type="text">
+                                </label>
+                                <p class="alert alert-danger" role="alert"
+                                   th:errors="${user.lastName}"></p>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Role:
+                                    <select class="form-select border border-info" name="role">
+                                        <option th:each="role : ${roles}"
+                                                th:text="${role.role}"
+                                                th:value="${role.role}">
+                                        </option>
+                                    </select>
+                                </label>
+                                <p class="alert alert-danger" role="alert" th:errors="${user.roles}"></p>
+
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-auto">
+                                    <label>Email:
+                                        <input class="form-control border border-info"
+                                               th:field="${user.emailAddress}"
+                                               type="text">
+                                    </label>
+                                    <p class="alert alert-danger" role="alert"
+                                       th:errors="${user.emailAddress}"></p>
+                                </div>
+                            </div>
+                            <div class="row-cols-auto mb-3">
+                                <div class="form-group col-auto align-content-center">
+                                    <input class="btn btn-success border border-info" type="submit" value="Create">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package proiect.Model;
+package proiect.Model.User;
 
 import lombok.Data;
 

@@ -10,4 +10,5 @@ public interface BookService {
     void deleteById(Integer ID);
     Optional<Book> findById(Integer ID);
     Iterable<Book> findAll();
+    void flush();
 }

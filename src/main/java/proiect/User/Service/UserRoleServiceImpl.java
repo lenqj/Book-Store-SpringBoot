@@ -1,18 +1,18 @@
-package proiect.UserRole.Service;
+package proiect.User.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import proiect.DTO.UserRoleDto;
 import proiect.Mapper.RoleMapper;
-import proiect.Model.UserRole;
-import proiect.UserRole.Repository.UserRoleRepository;
+import proiect.Model.User.UserRole;
+import proiect.User.Repository.UserRoleRepository;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImpl implements RoleService{
+public class UserRoleServiceImpl implements UserRoleService{
 
         private final UserRoleRepository userRoleRepository;
 
@@ -42,4 +42,9 @@ public class RoleServiceImpl implements RoleService{
             userRoleRepository.delete(role);
         }
 
+    @Override
+    public UserRole findByName(String role) {
+        return userRoleRepository.findByName(role);
     }
+
+}

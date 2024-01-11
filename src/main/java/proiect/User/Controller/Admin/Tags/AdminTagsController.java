@@ -12,32 +12,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import proiect.Book.Repository.BookCategoryRepository;
 import proiect.Book.Service.BookService;
-import proiect.Book.Service.BookServiceImpl;
+import proiect.Book.Service.TagService;
 import proiect.DTO.UserDto;
 import proiect.Model.Book.BookTag;
-import proiect.Tag.Repository.TagRepository;
+import proiect.Book.Repository.TagRepository;
 import proiect.User.Service.UserService;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/tags")
 
 public class AdminTagsController {
-    private final BookService bookService;
-    private final BookCategoryRepository bookCategoryRepository;
-    private final TagRepository tagRepository;
+    private final TagService tagService;
     private final UserService userService;
     @GetMapping()
     public String displayAllTags(Model model, Authentication authentication){
+        model.addAttribute("sitetitle", "LP - Tags");
+        model.addAttribute("headertext", "View all tags!");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
         }
         model.addAttribute("title", "All Categories");
-        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("tags", tagService.findAll());
         return "admin/tags/index";
     }
     @GetMapping("/create")
     public String renderCreateTagForm(Model model, Authentication authentication){
+        model.addAttribute("sitetitle", "LP - Create Tag");
+        model.addAttribute("headertext", "Create Tag!");
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
@@ -54,10 +56,10 @@ public class AdminTagsController {
         }
         if(errors.hasErrors()){
             model.addAttribute("title", "Create BookTag");
-            model.addAttribute("tags", tagRepository.findAll());
+            model.addAttribute("tags", tagService.findAll());
             return "admin/tags/create";
         }
-        tagRepository.save(tag);
+        tagService.save(tag);
         return "redirect:/admin/tags";
     }
 }

@@ -2,7 +2,7 @@ package proiect.Mapper;
 
 import org.springframework.stereotype.Component;
 import proiect.DTO.UserRoleDto;
-import proiect.Model.UserRole;
+import proiect.Model.User.UserRole;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class RoleMapper {
 
     public List<UserRoleDto> roleListEntityToDto(List<UserRole> roles){
         return roles.stream()
-                .map(role -> roleEntityToDto(role))
+                .map(this::roleEntityToDto)
                 .toList();
     }
 
@@ -30,7 +30,7 @@ public class RoleMapper {
 
     public List<UserRole> roleListDtoToEntity(List<UserRoleDto> roleDtos){
         return roleDtos.stream()
-                .map(roleDto -> roleDtoToEntity(roleDto))
+                .map(this::roleDtoToEntity)
                 .toList();
     }
 }

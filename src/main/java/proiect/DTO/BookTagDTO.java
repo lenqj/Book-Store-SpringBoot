@@ -1,4 +1,4 @@
-package proiect.Model.Book.DTO;
+package proiect.DTO;
 
 import jakarta.validation.constraints.NotNull;
 import proiect.Model.Book.Book;

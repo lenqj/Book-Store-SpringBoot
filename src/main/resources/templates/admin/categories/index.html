@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head th:replace="~{fragments :: head}"></head>
+>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
+
 <body class="container">
 <div class='dashboard'>
     <div th:replace="~{fragments :: vertical}"></div>
@@ -11,7 +12,7 @@
             <div class='container'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h1 th:text="'Welcome back, ' + ${user.username}"></h1>
+                        <h1 th:text="${headertext}"></h1>
                     </div>
                     <div class='card-body'>
                         <table class="table table-stripped">
@@ -23,9 +24,11 @@
                             </thead>
                             <tr th:each="category : ${categories}" th:object="${category}">
                                 <td th:text="${category.ID}"></td>
-                                <td><a th:text="${category.name}" th:href="'/admin/books?categoryID=' + ${category.ID}"></a></td>
+                                <td><a th:href="@{~/admin/books(categoryID=${category.ID})}"
+                                       th:text="${category.name}"></a></td>
                             </tr>
                         </table>
+                        <a th:href="@{~/admin/categories/create}" class="btn btn-info">Create category!</a>
                     </div>
                 </div>
             </div>

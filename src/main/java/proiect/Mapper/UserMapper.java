@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import proiect.DTO.UserDto;
 import proiect.Model.User.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,6 +20,9 @@ public class UserMapper {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .emailAddress(user.getEmailAddress())
+                .address(user.getAddress())
+                .mobile(user.getMobile())
+                .birthdate(user.getBirthdate())
                 .build();
     }
 
@@ -36,6 +40,9 @@ public class UserMapper {
                 .firstName(userDto.firstName())
                 .lastName(userDto.lastName())
                 .emailAddress(userDto.emailAddress())
+                .address(userDto.address())
+                .mobile(userDto.mobile())
+                .birthdate(userDto.birthdate())
                 .build();
     }
 

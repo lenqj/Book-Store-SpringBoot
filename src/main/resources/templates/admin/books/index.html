@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head th:replace="~{fragments :: head}"></head>
+>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
+
 <body class="container">
+<div class='dashboard'>
     <div th:replace="~{fragments :: vertical}"></div>
-    <div class='dashboard-app'>
-        <div class='dashboard-content'>
-            <div class='container'>
-                <div class='card'>
-                    <div class='card-header'>
-                        <h1 th:text="'Welcome back, ' + ${user.username}"></h1>
+    <div class="dashboard-app">
+        <div class="dashboard-content">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 th:text="${headertext}"></h1>
                     </div>
-                    <div class='card-body'>
+                    <div class="card-body">
                         <table class="table table-stripped">
                             <thead>
                             <tr>
@@ -23,21 +25,29 @@
                             </thead>
                             <tr th:each="book : ${books}" th:object="${book}">
                                 <td>
-                                    <a th:text="${book.title}" th:href="'/books/detail?bookID=' + ${book.ID}"></a>
+                                    <a th:href="@{~/books/detail(bookID=${book.ID})}" th:text="${book.title}"></a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning" th:href="'/detail?bookID=' + ${book.getID()}">Update</button>
+                                    <form method="post"
+                                          th:action="@{~/admin/books/update/{bookID}(bookID = ${book.ID})}">
+                                        <input class="btn btn-warning" type="submit" value="Update">
+                                    </form>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger" th:href="'/detail?bookID=' + ${book.getID()}">Delete</button>
+                                    <form method="post" th:action="@{~/admin/books/delete}">
+                                        <input name="bookIDs" th:value="${book.ID}" type="hidden">
+                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                    </form>
                                 </td>
                             </tr>
                         </table>
+                        <a th:href="@{~/admin/books/create}" class="btn btn-info">Create book!</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

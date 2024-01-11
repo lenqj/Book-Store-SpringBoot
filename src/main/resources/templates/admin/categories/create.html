@@ -1,22 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
-<body class="container">
-<div th:replace="~{fragments :: vertical}"></div>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 
-<form method="post" th:action="@{/admin/categories/create}">
-    <div class="form-group">
-        <label>Name:
-            <input th:field="${category.name}" class="form-control">
-        </label>
-        <p class="alert alert-danger" role="alert" th:errors="${category.name}"></p>
-    </div>
-    <div class="row mb-3">
-        <div class="form-group col-auto align-content-center">
-            <input class="btn btn-success border border-info" type="submit" value="SEND!">
+<body class="container">
+<div class='dashboard'>
+    <div th:replace="~{fragments :: vertical}"></div>
+    <div class='dashboard-app'>
+        <div class='dashboard-content'>
+            <div class='container'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h1 th:text="${headertext}"></h1>
+                    </div>
+                    <div class='card-body'>
+                        <form method="post" th:action="@{~/admin/categories/create}">
+                            <div class="form-group">
+                                <label>Name:
+                                    <input class="form-control" th:field="${category.name}">
+                                </label>
+                                <p class="alert alert-danger" role="alert" th:errors="${category.name}"></p>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col-auto align-content-center">
+                                    <input class="btn btn-success border border-info" type="submit" value="SEND!">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</form>
-
+</div>
 </body>
 </html>

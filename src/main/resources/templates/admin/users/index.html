@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 <body class="container">
 <div class='dashboard'>
     <div th:replace="~{fragments :: vertical}"></div>
@@ -9,22 +9,38 @@
             <div class='container'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h1 th:text="'Welcome back, ' + ${user.username}"></h1>
+                        <h1 th:text="${headertext}"></h1>
                     </div>
                     <div class='card-body'>
-                    </div>
                     <table class="table table-stripped">
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tr th:each="user : ${users}" th:object="${user}">
                             <td>
-                                <a th:text="${user.name}" th:href="'profile/detail?userID=' + ${user.getID()}"></a>
+                                <a th:text="${user.username}"></a>
                             </td>
+                            <td>
+                                <form method="post" th:action="@{~/admin/users/update}">
+                                    <input name="userIDs" th:value="${user.id}" type="hidden">
+                                    <input class="btn btn-warning" type="submit" value="Update">
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" th:action="@{~/admin/users/delete}">
+                                    <input name="userIDs" th:value="${user.id}" type="hidden">
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                </form>
+                            </td>
+
                         </tr>
                     </table>
+                    <a th:href="@{~/admin/users/create}" class="btn btn-info">Create user!</a>
+                    </div>
                 </div>
             </div>
         </div>

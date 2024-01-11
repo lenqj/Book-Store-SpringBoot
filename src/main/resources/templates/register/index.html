@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
 
-<body class="container bg-primary bg-gradient">
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+<body class="container custom-background">
+<section class="gradient-custom">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center my-lg-5">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
@@ -23,7 +23,7 @@
                                     <strong>Failure!</strong> Operation failed. Please try again
                                 </div>
                             </div>
-                            <form method="post" th:action="@{/register}" th:object="${user}">
+                            <form method="post" th:action="@{~/register}" th:object="${user}">
 
                                 <div class="form-outline form-white mb-2">
                                     <label>Username:
@@ -54,17 +54,17 @@
                                     <input type="password"  id="password" autofocus="autofocus"
                                            class="form-control" required name="password" th:field="*{password}" >                                </label>
                             </div>
-
-                                <p class="small mb-5 pb-lg-2">
-                                    <a class="text-white-50" th:href="@{/login}">Already registered?</a>
-                                </p>
-
                                 <div class="row-cols-auto mb-3">
                                     <div class="form-group col-auto align-content-center">
                                         <input class="btn btn-outline-light btn-lg px-5" type="submit" value="Register">
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div>
+                            <p class="mb-0">If you already have an account <a class="text-white-50 fw-bold"
+                                                                              th:href="@{~/login}">Sign In</a>
+                            </p>
                         </div>
                     </div>
                 </div>

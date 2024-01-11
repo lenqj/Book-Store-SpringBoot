@@ -5,6 +5,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import proiect.Model.AbstractEntity;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@DynamicUpdate
 public class BookTag extends AbstractEntity {
     @Size(min = 1, max = 25)
     @NotBlank
