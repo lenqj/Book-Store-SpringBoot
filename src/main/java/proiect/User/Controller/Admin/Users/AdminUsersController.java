@@ -7,13 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import proiect.DTO.UserDto;
 import proiect.Mapper.RoleMapper;
+import proiect.Model.Book.Book;
 import proiect.Model.User.User;
 import proiect.User.Repository.UserRoleRepository;
 import proiect.User.Service.UserRoleService;
 import proiect.User.Service.UserService;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +47,7 @@ public class AdminUsersController {
         return "admin/users/create";
     }
     @PostMapping("/create")
-    public String createUser(@ModelAttribute @Valid User user, @RequestParam String role, Errors errors, Model model, Authentication authentication){
+    public String createUser(@ModelAttribute @Valid User user, @RequestParam String role, @RequestParam String password, Errors errors, Model model, Authentication authentication){
         if(errors.hasErrors()){
             model.addAttribute("title", "Create User");
             model.addAttribute("roles", userRoleService.getAllRoles());
@@ -70,4 +78,27 @@ public class AdminUsersController {
         }
         return "redirect:/admin/users";
     }
+
+    @RequestMapping("/update/{userID}")
+    public String displayUserUpdate(@PathVariable("userID") int userID, Model model, Authentication authentication) {
+        model.addAttribute("sitetitle", "LP - Update User");
+        model.addAttribute("headertext", "Update user!");
+        model.addAttribute("title", "Update User");
+        model.addAttribute("user", userService.findById(userID));
+        model.addAttribute("roles", userRoleService.getAllRoles());
+        return "admin/users/update";
+    }
+
+
+    @RequestMapping("/update")
+    public String updateUser(@ModelAttribute @Valid User user, Errors errors, Model model, Authentication authentication) {
+        if(errors.hasErrors()){
+            model.addAttribute("title", "Update User");
+            model.addAttribute("roles", userRoleService.getAllRoles());
+            return "admin/users/update";
+        }
+        userService.save(user);
+        return "redirect:/admin/users";
+    }
+
 }

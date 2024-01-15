@@ -18,9 +18,4 @@ public record UserDto(
         String address,
         String mobile,
         LocalDate birthdate) {
-    public String getPrettyRoles(){
-        StringBuilder stringBuilder = new StringBuilder(" ");
-        roles.forEach(stringBuilder::append);
-        return stringBuilder.toString();
-    }
 }

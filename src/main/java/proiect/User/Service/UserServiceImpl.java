@@ -1,7 +1,6 @@
 package proiect.User.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import proiect.DTO.UserDto;
@@ -13,6 +12,8 @@ import proiect.User.Repository.UserRepository;
 import proiect.Model.User.User;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public UserDto getLoginUser(){
-        return userMapper.userEntityToDto(userRepository.findLoginUser().orElse(null));
+        return userMapper.userEntityToDto(Objects.requireNonNull(userRepository.findLoginUser().orElse(null)));
     }
 
     public UserDto getUserById(Integer id){
@@ -68,8 +69,8 @@ public class UserServiceImpl implements UserService{
         return userMapper.userEntityToDto(userRepository.save(user));
     }
 
-    public UserDto updateUser(User user){
-        return userMapper.userEntityToDto(userRepository.save(user));
+    public User updateUser(UserDto user, String password){
+        return userRepository.save(userMapper.userDtoToEntity(user, password));
     }
 
     public void deleteUser(User user){
@@ -79,5 +80,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteById(Integer ID) {
         userRepository.deleteById(ID);
+    }
+
+    @Override
+    public Optional<User> findById(Integer ID) {
+        return userRepository.findById(ID);
+    }
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

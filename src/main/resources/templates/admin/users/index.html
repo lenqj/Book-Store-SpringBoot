@@ -25,8 +25,8 @@
                                 <a th:text="${user.username}"></a>
                             </td>
                             <td>
-                                <form method="post" th:action="@{~/admin/users/update}">
-                                    <input name="userIDs" th:value="${user.id}" type="hidden">
+                                <form method="post"
+                                      th:action="@{~/admin/users/update/{userID}(userID=${user.id})}">
                                     <input class="btn btn-warning" type="submit" value="Update">
                                 </form>
                             </td>
