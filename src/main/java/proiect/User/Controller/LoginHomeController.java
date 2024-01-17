@@ -1,12 +1,10 @@
 package proiect.User.Controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import proiect.Book.Service.BookService;
 import proiect.DTO.UserDto;
 import proiect.Model.User.RegistrationRequest;

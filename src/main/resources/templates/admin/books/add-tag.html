@@ -12,7 +12,7 @@
                         <h1 th:text="${headertext}"></h1>
                     </div>
                     <div class='card-body'>
-                        <form method="post">
+                        <form method="post" th:action="@{~/admin/books/add-tag}">
                             <div class="form-group">
                                 <input th:field="${bookTagDTO.book}" type="hidden">
                                 <select th:field="${bookTagDTO.tag}">

@@ -34,8 +34,8 @@ public class SecurityConfig {
                     authConfig.requestMatchers(HttpMethod.GET, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.PUT, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.PUT, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/tags", "/admin/tags/create", "/admin/tags/delete").hasAnyAuthority("ADMIN", "USER");

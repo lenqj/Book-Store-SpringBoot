@@ -24,8 +24,10 @@
                             </thead>
                             <tr th:each="category : ${categories}" th:object="${category}">
                                 <td th:text="${category.ID}"></td>
-                                <td><a th:href="@{~/admin/books(categoryID=${category.ID})}"
-                                       th:text="${category.name}"></a></td>
+                                <td>
+                                    <a th:href="@{~/admin/books(categoryID=${category.ID})}"
+                                       th:text="${category.name}"></a>
+                                </td>
                             </tr>
                         </table>
                         <a th:href="@{~/admin/categories/create}" class="btn btn-info">Create category!</a>

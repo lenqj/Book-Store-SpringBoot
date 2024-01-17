@@ -77,6 +77,7 @@ public class BookDetails extends AbstractEntity {
         this.imageFile = imageFile;
     }
 
+
     public String getBase64imageData() {
         return encodeBase64String(imageData);
     }
