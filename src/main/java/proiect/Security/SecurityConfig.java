@@ -29,18 +29,17 @@ public class SecurityConfig {
                     authConfig.requestMatchers(HttpMethod.POST, "/", "/login", "/register", "/error", "/login-error", "/logout", "/css/**", "/js/**", "/images/**").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/categories", "/tags", "/books", "/books/detail").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/categories", "/tags", "/books", "/books/detail").permitAll();
-                    authConfig.requestMatchers(HttpMethod.GET, "/register").permitAll();
-                    authConfig.requestMatchers(HttpMethod.POST, "/register").permitAll();
+                    authConfig.requestMatchers(HttpMethod.GET, "/cart", "/cart/add-to-cart", "/cart/remove-from-cart").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/cart", "/cart/add-to-cart", "/cart/remove-from-cart").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin", "/profile").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
-                    authConfig.requestMatchers(HttpMethod.PUT, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update/**").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.POST, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
+                    authConfig.requestMatchers(HttpMethod.PUT, "/admin/books", "/admin/books/create", "/admin/books/delete", "/admin/books/add-tag", "/admin/books/update").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/categories", "/admin/categories/create", "/admin/categories/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/tags", "/admin/tags/create", "/admin/tags/delete").hasAnyAuthority("ADMIN", "USER");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/tags", "/admin/tags/create", "/admin/tags/delete").hasAnyAuthority("ADMIN", "USER");
-
                     authConfig.requestMatchers(HttpMethod.GET, "/admin/users", "/admin/users/create", "/admin/users/delete").hasAnyAuthority("ADMIN");
                     authConfig.requestMatchers(HttpMethod.POST, "/admin/users", "/admin/users/create", "/admin/users/delete").hasAnyAuthority("ADMIN");
                     authConfig.anyRequest().authenticated();

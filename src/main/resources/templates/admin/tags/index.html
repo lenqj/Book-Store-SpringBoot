@@ -21,7 +21,7 @@
                             </thead>
                             <tr th:each="tag : ${tags}" th:object="${tag}">
                                 <td>
-                                    <a th:text="${tag.name}"></a>
+                                    <a th:text="${tag.name}" th:href="@{~/admin/books(bookTagID=${tag.ID})}"></a>
                                 </td>
                             </tr>
                         </table>

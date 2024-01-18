@@ -97,7 +97,7 @@ public class AdminUsersController {
             model.addAttribute("roles", userRoleService.getAllRoles());
             return "admin/users/update";
         }
-        userService.save(user);
+        userService.createUser(user);
         return "redirect:/admin/users";
     }
 

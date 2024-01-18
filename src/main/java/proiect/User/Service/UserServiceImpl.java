@@ -65,7 +65,15 @@ public class UserServiceImpl implements UserService{
     }
 
     public UserDto createUser(User user){
+        user.setId(user.getId());
+        user.setUsername(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(user.getRoles());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setBirthdate(user.getBirthdate());
+        user.setAddress(user.getAddress());
+        user.setMobile(user.getMobile());
         return userMapper.userEntityToDto(userRepository.save(user));
     }
 

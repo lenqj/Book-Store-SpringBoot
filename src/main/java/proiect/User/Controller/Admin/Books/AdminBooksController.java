@@ -26,13 +26,14 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/books")
+
 public class AdminBooksController {
     private final BookService bookService;
     private final BookCategoryService bookCategoryService;
     private final TagService tagService;
     private final UserService userService;
     @GetMapping()
-    public String displayAllBooks(@RequestParam(required = false) Integer categoryID, Model model, Authentication authentication){
+    public String displayAllBooks(@RequestParam(required = false) Integer categoryID, @RequestParam(required = false) Integer bookTagID, Model model, Authentication authentication){
         model.addAttribute("sitetitle", "LP - Books");
         model.addAttribute("headertext", "View all books!");
         if(authentication != null){
@@ -50,6 +51,20 @@ public class AdminBooksController {
                 BookCategory category = result.get();
                 model.addAttribute("title", "Books in category: " + category.getName());
                 model.addAttribute("books", category.getBooks());
+            }
+        }
+
+        if (bookTagID == null){
+            model.addAttribute("title","All Books");
+            model.addAttribute("books", bookService.findAll());
+        }else{
+            Optional<BookTag> result = tagService.findById(bookTagID);
+            if(result.isEmpty()){
+                model.addAttribute("title","Invalid Category ID: " + categoryID);
+            }else{
+                BookTag tag = result.get();
+                model.addAttribute("title", "Books in Tag: " + tag.getName());
+                model.addAttribute("books", tag.getBooks());
             }
         }
         return "admin/books/index";
@@ -70,7 +85,7 @@ public class AdminBooksController {
         return "admin/books/create";
     }
     @PostMapping("/create")
-    public String createBook(@ModelAttribute @Valid Book book, @RequestParam(value = "imageFile", required = false) MultipartFile imageFile, Errors errors, Model model, Authentication authentication){
+    public String createBook(@ModelAttribute @Valid Book book, Errors errors, Model model, Authentication authentication){
         if(authentication != null){
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
@@ -80,9 +95,9 @@ public class AdminBooksController {
             model.addAttribute("bookCategories", bookCategoryService.findAll());
             return "admin/books/create";
         }
-        if(imageFile != null){
+        if(!book.getBookDetails().getImageFile().isEmpty()){
             try {
-                book.getBookDetails().setImageData(imageFile.getBytes());
+                book.getBookDetails().setImageData(book.getBookDetails().getImageFile().getBytes());
             } catch (IOException ignored) {
 
             }
@@ -148,7 +163,7 @@ public class AdminBooksController {
                 book.addTag(tag);
                 bookService.save(book);
             }
-            return "redirect:/admin/books/detail?bookID=" + book.getID();
+            return "redirect:/books/detail?bookID=" + book.getID();
         }
         return "redirect:/admin/books/add-tag";
     }
@@ -167,7 +182,7 @@ public class AdminBooksController {
         return "/admin/books/update";
     }
     @RequestMapping("/update")
-    public String createBook(@ModelAttribute Book book, @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) {
+    public String createBook(@ModelAttribute Book book) {
         /*Optional<Book> newBook = bookService.findById(book.getID());
         if(newBook.isPresent()) {
             if (imageFile != null) {
@@ -180,6 +195,13 @@ public class AdminBooksController {
             bookService.save(newBook.get());
             bookService.flush();
         }*/
+        if(book.getBookDetails().getImageFile() != null){
+            try {
+                book.getBookDetails().setImageData(book.getBookDetails().getImageFile().getBytes());
+            } catch (IOException ignored) {
+
+            }
+        }
         bookService.save(book);
         return "redirect:/admin/books";
     }

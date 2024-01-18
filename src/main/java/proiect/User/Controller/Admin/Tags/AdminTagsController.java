@@ -32,7 +32,7 @@ public class AdminTagsController {
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
         }
-        model.addAttribute("title", "All Categories");
+        model.addAttribute("title", "All tags");
         model.addAttribute("tags", tagService.findAll());
         return "admin/tags/index";
     }
