@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import proiect.Model.AbstractEntity;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
@@ -81,4 +83,5 @@ public class BookDetails extends AbstractEntity {
     public String getBase64imageData() {
         return encodeBase64String(imageData);
     }
+
 }

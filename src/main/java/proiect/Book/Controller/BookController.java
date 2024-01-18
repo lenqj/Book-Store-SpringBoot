@@ -5,8 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import proiect.Book.Repository.BookCategoryRepository;
-import proiect.Book.Repository.BookRepository;
 import proiect.Book.Service.BookCategoryService;
 import proiect.Book.Service.BookService;
 import proiect.DTO.UserDto;

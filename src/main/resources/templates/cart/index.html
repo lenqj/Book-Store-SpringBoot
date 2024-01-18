@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head(${sitetitle})}"></head>
+<body class="container">
+<header th:replace="~{fragments :: horizontal}"></header>
+<table class="table table-stripped">
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tr th:each="book : ${books}" th:object="${book.getKey()}">
+        <td>
+            <a th:href="@{~/cart/add-to-cart(bookID=${book.getKey().getID()})}" th:text="${book.getKey().title}"></a>
+        </td>
+    </tr>
+</table>
+<a th:href="@{~/cart/checkout}">Checkout</a>
+
+</body>
+</html>
